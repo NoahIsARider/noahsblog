@@ -5,7 +5,7 @@
 {{- $src = replaceRE `\\` "/" $src -}}
 {{- /* leave absolute external URLs untouched */ -}}
 {{- if not (urls.Parse $src).Scheme -}}
-  {{- /* strip leading slash so relURL prefixes the site base path (/noahsblogs/) */ -}}
+  {{- /* strip leading slash so relURL prefixes the site base path (/noahsblog/) */ -}}
   {{- $src = strings.TrimPrefix "/" $src -}}
   {{- $src = relURL $src -}}
 {{- end -}}

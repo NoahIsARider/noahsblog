@@ -1,6 +1,6 @@
 baseURL = 'https://example.com/'
 locale = 'en-US'
-title = 'NoahsBlogs'
+title = "Noah's Blog"
 enableRobotsTXT = true
 hasCJKLanguage = true
 summaryLength = 120
