@@ -1,96 +1,67 @@
-# Shibui Blogs
+# Noah's Blog
 
-This is a Hugo static blog project already cleaned up into a proper personal site repository.
+A writing-first personal site — research notes, engineering, and the kind of thoughts worth keeping. Authored and maintained by [@NoahIsARider](https://github.com/NoahIsARider).
 
-It keeps the minimalist, terminal-adjacent, monochrome feel of the original theme, while moving content, configuration, and deployment entry points to the repository root for easier long-term writing and maintenance.
+**Live:** <https://noahisarider.github.io/noahsblog/>
+
+Built with [Hugo](https://gohugo.io/): plain Markdown in, static HTML out. The visual direction is adapted from the minimal [Shibui](https://github.com/ntk148v/shibui) theme (MIT).
 
 ## Structure
 
 ```text
 .
-├── archetypes/          # New post templates
-├── assets/css/          # Theme styles and custom overrides
+├── archetypes/          # Front-matter defaults for new posts
+├── assets/css/          # Styles — main.css plus custom overrides
 ├── content/             # Site content
-│   ├── _index.md
-│   ├── about.md
-│   └── posts/
-├── layouts/             # Hugo templates
-├── static/              # Static assets
+│   ├── _index.md        # Home page
+│   ├── about.md         # About page
+│   └── posts/           # Posts
+├── layouts/             # Templates and partials
+├── static/              # Static assets (favicon, images)
 ├── .github/workflows/   # GitHub Pages deployment
-├── hugo.toml            # Main site configuration
-└── vercel.json          # Vercel build configuration
+├── hugo.toml            # Site configuration
+├── build.sh             # Vercel build entry point
+└── vercel.json          # Vercel configuration
 ```
 
 ## Writing
 
-To add a new post, run this at the repository root:
+Create a post from the repository root:
 
 ```bash
 hugo new posts/my-new-post.md
 ```
 
-New posts use [archetypes/default.md](./archetypes/default.md) as the default template, including:
+New posts start from [archetypes/default.md](./archetypes/default.md), with `title`, `date`, `draft`, `description`, `tags`, `toc`, and `showreadingtime` pre-filled. The body goes under `content/posts/`.
 
-- `title`
-- `date`
-- `draft`
-- `description`
-- `tags`
-- `toc`
-- `showreadingtime`
+## Local preview
 
-Place the actual article content under `content/posts/`.
-
-## Local Preview
-
-If Hugo is installed locally:
+With Hugo installed:
 
 ```bash
 hugo server -D
 ```
 
-The `-D` flag includes draft posts.
+`-D` includes drafts. Without a local Hugo, [build.sh](./build.sh) downloads a pinned release and builds once.
 
 ## Deployment
 
 ### GitHub Pages
 
-The repository already includes the GitHub Actions workflow [`.github/workflows/gh-page.yml`](./.github/workflows/gh-page.yml).
+[.github/workflows/gh-page.yml](./.github/workflows/gh-page.yml) builds and publishes on every push to `master` (or `main`), and can also be run manually from the Actions tab. Keep `Settings → Pages → Build and deployment → Source` on **GitHub Actions**.
 
-- Pushing to `main` or `master` triggers build and deployment automatically
-- The build output directory is `public/`
-
-Recommended repository setting:
-
-- `Settings -> Pages -> Build and deployment -> Source: GitHub Actions`
+The workflow pins Hugo and passes the Pages base URL at build time, so `baseURL` in `hugo.toml` only matters for local builds.
 
 ### Vercel
 
-The repository also includes [vercel.json](./vercel.json):
+[vercel.json](./vercel.json) runs [build.sh](./build.sh) and serves `public/`. Set `HUGO_VERSION` in the project environment variables if you need to override the pinned version.
 
-- Build command: `hugo --gc --minify`
-- Output directory: `public`
+## Configuration
 
-Once imported into Vercel, it should usually work without extra configuration. If the platform asks for an explicit Hugo version, add `HUGO_VERSION` in the project environment variables.
+[`hugo.toml`](./hugo.toml) holds the site settings: `baseURL`, `title`, `params.description`, `params.author`, `params.footerText`, and the `menu.main` entries.
 
-## Site Configuration
+For visual tweaks, start in [assets/css/custom.css](./assets/css/custom.css).
 
-The main configuration file is [hugo.toml](./hugo.toml). Common edits include:
+## Credits
 
-- `baseURL`
-- `title`
-- `params.author.name`
-- `params.description`
-- `params.footerText`
-- menu `menu.main`
-
-## Style Notes
-
-The current site direction emphasizes:
-
-- minimalism
-- strong readability
-- monochrome structure
-- a terminal or document-index undertone
-
-If you want to keep refining the visuals, start with [assets/css/custom.css](./assets/css/custom.css).
+Design adapted from the [Shibui](https://github.com/ntk148v/shibui) Hugo theme by [Kien Nguyen-Tuan](https://github.com/ntk148v), MIT licensed — see [LICENSE](./LICENSE).
