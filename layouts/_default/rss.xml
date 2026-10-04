@@ -1,0 +1,37 @@
+{{- printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>{{ site.Title }}</title>
+    <link>{{ site.Home.Permalink }}</link>
+    <description>{{ site.Params.description | default site.Title }}</description>
+    <language>{{ site.Language.LanguageCode | default "en-us" }}</language>
+    <lastBuildDate>{{ now.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</lastBuildDate>
+    {{- with site.Home.OutputFormats.Get "rss" }}
+    <atom:link href="{{ .Permalink }}" rel="self" type="{{ .MediaType.Type }}" />
+    {{- end }}
+    {{/* the author's other homes — aggregators and crawlers follow these */}}
+    {{- with site.Params.githubURL }}
+    <atom:link href="{{ . }}" rel="related" type="text/html" title="GitHub" />
+    {{- end }}
+    {{- with site.Params.personalSite }}
+    <atom:link href="{{ . }}" rel="related" type="text/html" title="Noah's personal site" />
+    {{- end }}
+    <generator>Hugo {{ hugo.Version }}</generator>
+    {{- $pages := .RegularPages }}
+    {{- if .IsHome }}{{ $pages = site.RegularPages }}{{ end }}
+    {{- range $pages }}
+    <item>
+      <title>{{ .Title }}</title>
+      <link>{{ .Permalink }}</link>
+      <guid isPermaLink="true">{{ .Permalink }}</guid>
+      <dc:creator>{{ site.Params.author.name | default "NoahIsARider" }}</dc:creator>
+      {{- if not .Date.IsZero }}
+      <pubDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</pubDate>
+      {{- end }}
+      {{- with .Description | default .Summary }}
+      <description>{{ . | plainify | htmlEscape }}</description>
+      {{- end }}
+    </item>
+    {{- end }}
+  </channel>
+</rss>

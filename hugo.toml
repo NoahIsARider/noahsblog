@@ -1,4 +1,4 @@
-baseURL = 'https://example.com/'
+baseURL = 'https://noahsblog.pages.dev/'
 locale = 'en-US'
 title = "Noah's Blog"
 enableRobotsTXT = true
@@ -19,6 +19,7 @@ summaryLength = 120
 
 [params]
   description = "A running archive of Noah's research notes, development work, and passing thoughts."
+  personalSite = 'https://noahisarider.github.io/'
   comments = false
   showtoc = true
   showreadingtime = true
@@ -59,6 +60,12 @@ summaryLength = 120
   expiryDate = ['expiryDate']
   lastmod = [':git', 'lastmod', 'date', 'publishDate']
   publishDate = ['publishDate', 'date']
+
+[outputFormats.RSS]
+  mediaType = 'application/rss+xml'
+  # /feed.xml at the site root (and /posts/feed.xml, /tags/<tag>/feed.xml) —
+  # index.xml still works for feeds, this is just the friendlier, shareable name
+  baseName = 'feed'
 
 [outputs]
   home = ['HTML', 'RSS']

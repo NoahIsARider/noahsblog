@@ -17,4 +17,22 @@ if ! command -v hugo >/dev/null 2>&1; then
 fi
 
 echo "Using $(hugo version)"
-hugo --gc --minify
+
+# Every host serves the same tree, so give each one its own absolute URLs — otherwise
+# the feed, sitemap and canonical links point at another host (or at the placeholder
+# baseURL in hugo.toml). Cloudflare Pages exposes CF_PAGES_URL, Vercel exposes
+# VERCEL_URL; anything else falls back to hugo.toml.
+BASE_URL="${BASE_URL:-}"
+if [ -n "${CF_PAGES_URL:-}" ]; then
+  BASE_URL="${CF_PAGES_URL%/}/"
+fi
+if [ -n "${VERCEL_URL:-}" ]; then
+  BASE_URL="https://${VERCEL_URL%/}/"
+fi
+
+if [ -n "$BASE_URL" ]; then
+  echo "baseURL: $BASE_URL"
+  hugo --gc --minify --baseURL "$BASE_URL"
+else
+  hugo --gc --minify
+fi

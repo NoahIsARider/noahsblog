@@ -74,7 +74,9 @@ Articles */}} {{ if .IsPage }}
     {{- with .Site.Params.author }},
     "author": {
       "@type": "Person",
-      "name": "{{ .name | default . }}"
+      "name": "{{ .name | default . }}"{{ with $.Site.Params.personalSite }},
+      "url": "{{ . }}"{{ end }}{{ $same := slice }}{{ with $.Site.Params.githubURL }}{{ $same = $same | append . }}{{ end }}{{ with $.Site.Params.personalSite }}{{ $same = $same | append . }}{{ end }},
+      "sameAs": [{{ range $i, $u := $same }}{{ if $i }}, {{ end }}"{{ $u }}"{{ end }}]
     }
     {{- end }}
     {{- with $.Description | default $.Site.Params.description }},
