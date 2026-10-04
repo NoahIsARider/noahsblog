@@ -32,7 +32,9 @@ fi
 
 if [ -n "$BASE_URL" ]; then
   echo "baseURL: $BASE_URL"
+  rm -rf public
   hugo --gc --minify --baseURL "$BASE_URL"
 else
+  rm -rf public
   hugo --gc --minify
 fi
