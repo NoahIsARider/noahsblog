@@ -59,7 +59,7 @@
 />{{ end }} {{ with .Site.Params.ogImage }}<meta
   name="twitter:image"
   content="{{ . | absURL }}"
-/>{{ end }} {{/* RSS Feed */}} {{ with .OutputFormats.Get "rss" -}} {{ printf
+/>{{ end }} {{/* RSS Feed */}} {{ with site.Home.OutputFormats.Get "feed" -}} {{ printf
 `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type
 .Permalink site.Title | safeHTML }} {{ end }} {{/* JSON-LD Structured Data for
 Articles */}} {{ if .IsPage }}

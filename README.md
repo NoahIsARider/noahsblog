@@ -4,7 +4,7 @@ A writing-first personal site — research notes, engineering, and the kind of t
 
 **Live:** <https://noahisarider.github.io/noahsblog/>
 
-**Feed:** <https://noahsblog.pages.dev/feed.xml> (RSS 2.0 — subscribe in any reader; `/posts/feed.xml` and `/tags/<tag>/feed.xml` exist too)
+**Feed:** <https://noahsblog.pages.dev/feed.xml> (RSS 2.0 — subscribe in any reader). The conventional `/index.xml` is written at the same time, and `/posts/feed.xml`, `/tags/<tag>/feed.xml` and `/categories/feed.xml` exist for the sections.
 
 Every page carries the `<link rel="alternate" type="application/rss+xml">` declaration, so pasting the site URL into a reader works as well.
 
