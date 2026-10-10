@@ -25,7 +25,7 @@ summaryLength = 120
   showlastmod = true
   mainSections = ['posts']
   footerText = 'Built with Hugo.'
-  githubURL = 'https://github.com/NoahIsARider'
+  githubURL = 'https://codeberg.org/NoahIsARider'
 
   [params.author]
     name = 'NoahIsARider'
