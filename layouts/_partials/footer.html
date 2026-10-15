@@ -2,5 +2,7 @@
   &copy; {{ now.Year }}
   {{ with site.Params.author.name }} &middot; {{ . }}{{ end }}
   {{ with site.Params.footerText }} &middot; {{ . }}{{ end }}
-  {{ with site.Params.githubURL }} &middot; <a href="{{ . }}" target="_blank" rel="noreferrer">GitHub</a>{{ end }}
+  {{ with site.Params.githubURL }} &middot; <a href="{{ . }}" rel="me noreferrer" target="_blank">GitHub</a>{{ end }}
+  {{ with site.Params.personalSite }} &middot; <a href="{{ . }}" rel="me">Site</a>{{ end }}
+  {{ with site.Home.OutputFormats.Get "feed" }} &middot; <a href="{{ .RelPermalink }}" type="{{ .MediaType.Type }}" title="Subscribe to {{ site.Title }}">RSS</a>{{ end }}
 </p>

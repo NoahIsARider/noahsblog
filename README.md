@@ -4,6 +4,10 @@ A writing-first personal site — research notes, engineering, and the kind of t
 
 **Live:** <https://noahisarider.github.io/noahsblog/>
 
+**Feed:** <https://noahsblog.pages.dev/feed.xml> (RSS 2.0 — subscribe in any reader). The conventional `/index.xml` is written at the same time, and `/posts/feed.xml`, `/tags/<tag>/feed.xml` and `/categories/feed.xml` exist for the sections.
+
+Every page carries the `<link rel="alternate" type="application/rss+xml">` declaration, so pasting the site URL into a reader works as well.
+
 Built with [Hugo](https://gohugo.io/): plain Markdown in, static HTML out. The visual direction is adapted from the minimal [Shibui](https://github.com/ntk148v/shibui) theme (MIT).
 
 ## Structure
@@ -50,11 +54,15 @@ hugo server -D
 
 [.github/workflows/gh-page.yml](./.github/workflows/gh-page.yml) builds and publishes on every push to `master` (or `main`), and can also be run manually from the Actions tab. Keep `Settings → Pages → Build and deployment → Source` on **GitHub Actions**.
 
-The workflow pins Hugo and passes the Pages base URL at build time, so `baseURL` in `hugo.toml` only matters for local builds.
+The workflow pins Hugo and passes the Pages base URL at build time, so the Pages build always gets its own absolute URLs.
+
+### Cloudflare Pages
+
+Connected to the same `master` branch; builds `hugo --gc --minify` and serves `public/` at <https://noahsblog.pages.dev>. [build.sh](./build.sh) picks up `CF_PAGES_URL` for the base URL, so its feed and sitemap point at `pages.dev` instead of another host.
 
 ### Vercel
 
-[vercel.json](./vercel.json) runs [build.sh](./build.sh) and serves `public/`. Set `HUGO_VERSION` in the project environment variables if you need to override the pinned version.
+[vercel.json](./vercel.json) runs [build.sh](./build.sh) and serves `public/`. Set `HUGO_VERSION` in the project environment variables if you need to override the pinned version. `build.sh` reads `VERCEL_URL` so the Vercel build's absolute URLs stay on `*.vercel.app`.
 
 ## Configuration
 

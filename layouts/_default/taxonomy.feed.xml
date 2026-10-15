@@ -1,0 +1,1 @@
+{{- partial "rss-body.html" (dict "p" . "self" (printf "%sfeed.xml" .Permalink)) -}}

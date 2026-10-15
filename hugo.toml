@@ -1,4 +1,4 @@
-baseURL = 'https://example.com/'
+baseURL = 'https://noahsblog.pages.dev/'
 locale = 'en-US'
 title = "Noah's Blog"
 enableRobotsTXT = true
@@ -19,6 +19,8 @@ summaryLength = 120
 
 [params]
   description = "A running archive of Noah's research notes, development work, and passing thoughts."
+  personalSite = 'https://noahisarider.github.io/'
+  cvURL = 'https://noahisarider.github.io/cv/'
   comments = false
   showtoc = true
   showreadingtime = true
@@ -60,10 +62,23 @@ summaryLength = 120
   lastmod = [':git', 'lastmod', 'date', 'publishDate']
   publishDate = ['publishDate', 'date']
 
+[outputFormats.RSS]
+  mediaType = 'application/rss+xml'
+
+# a second, friendlier feed URL — /feed.xml alongside the conventional /index.xml.
+# Both are generated on every build, so a host that reuses its workspace (Cloudflare
+# Pages builds with its own command) can never keep serving a stale feed at either path.
+[outputFormats.Feed]
+  mediaType = 'application/rss+xml'
+  baseName = 'feed'
+  isPlainText = false
+  notAlternative = true
+
 [outputs]
-  home = ['HTML', 'RSS']
-  section = ['HTML', 'RSS']
-  taxonomy = ['HTML', 'RSS']
+  home = ['HTML', 'RSS', 'Feed']
+  section = ['HTML', 'RSS', 'Feed']
+  taxonomy = ['HTML', 'RSS', 'Feed']
+  term = ['HTML', 'RSS', 'Feed']
 
 [menu]
   [[menu.main]]

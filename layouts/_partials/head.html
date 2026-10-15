@@ -59,7 +59,7 @@
 />{{ end }} {{ with .Site.Params.ogImage }}<meta
   name="twitter:image"
   content="{{ . | absURL }}"
-/>{{ end }} {{/* RSS Feed */}} {{ with .OutputFormats.Get "rss" -}} {{ printf
+/>{{ end }} {{/* RSS Feed */}} {{ with site.Home.OutputFormats.Get "feed" -}} {{ printf
 `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type
 .Permalink site.Title | safeHTML }} {{ end }} {{/* JSON-LD Structured Data for
 Articles */}} {{ if .IsPage }}
@@ -74,7 +74,9 @@ Articles */}} {{ if .IsPage }}
     {{- with .Site.Params.author }},
     "author": {
       "@type": "Person",
-      "name": "{{ .name | default . }}"
+      "name": "{{ .name | default . }}"{{ with $.Site.Params.personalSite }},
+      "url": "{{ . }}"{{ end }}{{ $same := slice }}{{ with $.Site.Params.githubURL }}{{ $same = $same | append . }}{{ end }}{{ with $.Site.Params.personalSite }}{{ $same = $same | append . }}{{ end }},
+      "sameAs": [{{ range $i, $u := $same }}{{ if $i }}, {{ end }}"{{ $u }}"{{ end }}]
     }
     {{- end }}
     {{- with $.Description | default $.Site.Params.description }},
