@@ -18,8 +18,9 @@
       savedTheme = null;
     }
 
+    var themes = ["light", "dark", "green", "paper"];
     var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-    var theme = savedTheme === "light" || savedTheme === "dark" ? savedTheme : (prefersDark ? "dark" : "light");
+    var theme = themes.indexOf(savedTheme) > -1 ? savedTheme : (prefersDark ? "dark" : "light");
     document.documentElement.setAttribute("data-theme", theme);
   })();
 </script>
@@ -88,32 +89,32 @@ Articles */}} {{ if .IsPage }}
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     var root = document.documentElement;
-    var button = document.querySelector("[data-theme-toggle]");
+    var swatches = document.querySelectorAll("[data-theme-choice]");
 
-    if (!button) {
+    if (!swatches.length) {
       return;
     }
 
-    function updateButton() {
-      var theme = root.getAttribute("data-theme") || "light";
-      var nextTheme = theme === "dark" ? "light" : "dark";
-      button.textContent = theme === "dark" ? "Dark" : "Light";
-      button.setAttribute("aria-label", "Switch to " + nextTheme + " mode");
-      button.setAttribute("title", "Switch to " + nextTheme + " mode");
+    function paint(theme) {
+      root.setAttribute("data-theme", theme);
+      for (var i = 0; i < swatches.length; i++) {
+        var swatch = swatches[i];
+        var isCurrent = swatch.getAttribute("data-theme-choice") === theme;
+        swatch.setAttribute("aria-pressed", isCurrent ? "true" : "false");
+      }
     }
 
-    button.addEventListener("click", function () {
-      var currentTheme = root.getAttribute("data-theme") || "light";
-      var nextTheme = currentTheme === "dark" ? "light" : "dark";
-      root.setAttribute("data-theme", nextTheme);
-      try {
-        localStorage.setItem("theme", nextTheme);
-      } catch (error) {
-      }
-      updateButton();
-    });
+    for (var i = 0; i < swatches.length; i++) {
+      swatches[i].addEventListener("click", function () {
+        var theme = this.getAttribute("data-theme-choice");
+        paint(theme);
+        try {
+          localStorage.setItem("theme", theme);
+        } catch (error) {}
+      });
+    }
 
-    updateButton();
+    paint(root.getAttribute("data-theme") || "light");
   });
 </script>
 {{ partialCached "head/favicon.html" . }} {{ partialCached

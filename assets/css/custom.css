@@ -34,6 +34,28 @@ html[data-theme="dark"] {
   --bg-h: 28;
   --bg-s: 10%;
   --bg-l: 12%;
+  color-scheme: dark;
+}
+
+/* Eye-care green, the muted sage of an old notebook page */
+html[data-theme="green"] {
+  --bg-h: 80;
+  --bg-s: 22%;
+  --bg-l: 83%;
+}
+
+/* Paper, a warm off-white sheet */
+html[data-theme="paper"] {
+  --bg-h: 45;
+  --bg-s: 42%;
+  --bg-l: 89%;
+}
+
+/* A faint tooth on the two paper-like grounds only */
+html[data-theme="green"] body,
+html[data-theme="paper"] body {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.34'/%3E%3C/svg%3E");
+  background-repeat: repeat;
 }
 
 body {
@@ -114,8 +136,7 @@ blockquote {
   flex-shrink: 0;
 }
 
-.site-action-link,
-.theme-toggle {
+.site-action-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -135,18 +156,64 @@ blockquote {
     background-color 0.2s ease;
 }
 
-.theme-toggle {
-  cursor: pointer;
+/* Four solid swatches instead of one toggle */
+.theme-switch {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
 }
 
-.site-action-link:hover,
-.theme-toggle:hover {
+.theme-swatch {
+  width: 1.15rem;
+  height: 1.15rem;
+  padding: 0;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  border-radius: 50%;
+  background: var(--swatch);
+  cursor: pointer;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    border-color 0.18s ease;
+}
+
+html[data-theme="dark"] .theme-swatch {
+  border-color: rgba(255, 255, 255, 0.24);
+}
+
+.theme-swatch[data-theme-choice="light"] {
+  --swatch: hsl(36 20% 98%);
+}
+
+.theme-swatch[data-theme-choice="dark"] {
+  --swatch: hsl(28 10% 15%);
+}
+
+.theme-swatch[data-theme-choice="green"] {
+  --swatch: hsl(80 25% 74%);
+}
+
+.theme-swatch[data-theme-choice="paper"] {
+  --swatch: hsl(45 46% 80%);
+}
+
+.theme-swatch:hover {
+  transform: scale(1.14);
+  border-color: var(--color-text-muted);
+}
+
+.theme-swatch[aria-pressed="true"] {
+  box-shadow:
+    0 0 0 2px var(--color-bg-primary),
+    0 0 0 3.5px var(--color-text-muted);
+}
+
+.site-action-link:hover {
   color: var(--color-text-primary);
   border-color: var(--color-text-muted);
 }
 
-.site-action-link:focus-visible,
-.theme-toggle:focus-visible {
+.site-action-link:focus-visible {
   color: var(--color-text-primary);
 }
 
