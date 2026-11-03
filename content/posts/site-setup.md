@@ -1,5 +1,6 @@
 +++
 title = 'Site Setup'
+slug = "site-setup"
 date = 2026-08-05T22:40:00+08:00
 draft = false
 description = 'A short post used to verify the blog structure and deployment flow.'
