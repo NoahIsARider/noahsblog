@@ -15,7 +15,7 @@ summaryLength = 120
   category = 'categories'
 
 [permalinks]
-  posts = '/posts/:slugorcontentbasename/'
+  posts = '/posts/:contentbasename/'
 
 [params]
   description = "A running archive of Noah's research notes, development work, and passing thoughts."
