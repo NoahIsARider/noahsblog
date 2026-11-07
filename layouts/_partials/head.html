@@ -77,7 +77,7 @@ Articles */}} {{ if .IsPage }}
     "author": {
       "@type": "Person",
       "name": "{{ .name | default . }}"{{ with $.Site.Params.personalSite }},
-      "url": "{{ . }}"{{ end }}{{ $same := slice }}{{ with $.Site.Params.githubURL }}{{ $same = $same | append . }}{{ end }}{{ with $.Site.Params.personalSite }}{{ $same = $same | append . }}{{ end }},
+      "url": "{{ . }}"{{ end }}{{ $same := slice }}{{ with $.Site.Params.githubURL }}{{ $same = $same | append . }}{{ end }}{{ with $.Site.Params.codebergURL }}{{ $same = $same | append . }}{{ end }}{{ with $.Site.Params.personalSite }}{{ $same = $same | append . }}{{ end }},
       "sameAs": [{{ range $i, $u := $same }}{{ if $i }}, {{ end }}"{{ $u }}"{{ end }}]
     }
     {{- end }}

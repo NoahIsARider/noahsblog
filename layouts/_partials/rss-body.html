@@ -14,6 +14,9 @@
     {{- with site.Params.githubURL }}
     <atom:link href="{{ . }}" rel="related" type="text/html" title="GitHub" />
     {{- end }}
+    {{- with site.Params.codebergURL }}
+    <atom:link href="{{ . }}" rel="related" type="text/html" title="Codeberg" />
+    {{- end }}
     {{- with site.Params.personalSite }}
     <atom:link href="{{ . }}" rel="related" type="text/html" title="Noah's personal site" />
     {{- end }}
